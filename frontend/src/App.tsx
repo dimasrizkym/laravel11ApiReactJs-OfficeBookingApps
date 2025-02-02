@@ -1,10 +1,24 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Browse from "./pages/Browse";
+import Details from "./pages/Details";
+import BookOffice from "./pages/BookOffice";
+import CityDetails from "./pages/CityDetails";
+import SuccessBooking from "./pages/SuccessBooking";
+import CheckBooking from "./pages/CheckBooking";
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">Test Tailwind!</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Browse />} />
+        <Route path="/office/:slug" element={<Details />} />
+        <Route path="/office/:slug/book" element={<BookOffice />} />
+        <Route path="/city/:slug" element={<CityDetails />} />
+        <Route path="/success-booking" element={<SuccessBooking />} />
+        <Route path="/check-booking" element={<CheckBooking />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
