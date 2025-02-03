@@ -4,21 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\CityResource;
+use App\Http\Resources\Api\OfficeSpaceResource;
 use App\Models\City;
+use App\Models\OfficeSpace;
 use Illuminate\Http\Request;
 
 class OfficeSpaceController extends Controller
 {
     public function index()
     {
-        $cities = City::withCount('officeSpaces')->get();
-        return CityResource::collection($cities);
+        $officeSpaces = OfficeSpace::with(['city'])->get();
+        return OfficeSpaceResource::collection($officeSpaces);   
+
     }
 
-    public function show(City $city)
+    public function show(OfficeSpace $officeSpace)
     {
-        $city->load(['officeSpaces.city', 'officeSpaces.photos']);
-        $city->loadCount('officeSpaces');
-        return new CityResource($city);
+       $officeSpace->load(['city', 'photos', 'benefits']);
+       return new OfficeSpaceResource($officeSpace);
     }
 }
